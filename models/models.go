@@ -11,7 +11,7 @@ type User struct {
 	Name     string `json:"name" faker:"name,unique"`
 	Password string `json:"password" faker:"password"`
 	Balance  int64  `json:"balance" gorm:"default:0"`
-	IsAdmin  bool   `json:"isAdmin"`
+	IsAdmin  bool   `json:"is_admin"`
 }
 
 type Transaction struct {
