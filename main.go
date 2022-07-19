@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/joho/godotenv"
 	"github.com/dParikesit/bnmo-backend/utils"
+	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 
@@ -21,6 +21,11 @@ func main() {
 	err = utils.InitDB()
 	if err != nil {
 		log.Fatalln("DB Connection error")
+	}
+
+	err = utils.InitSeeding()
+	if err != nil {
+		log.Fatalln("Seeding error")
 	}
 
 	fmt.Println("Db Connected")
