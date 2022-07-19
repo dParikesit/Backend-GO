@@ -9,9 +9,6 @@ import (
 	"time"
 )
 
-type FakeRequest struct {
-}
-
 func InitSeeding() error {
 	var err error
 	faker.SetGenerateUniqueValues(true)
