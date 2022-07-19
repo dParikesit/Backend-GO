@@ -2,25 +2,31 @@ package models
 
 import (
 	"github.com/google/uuid"
-	"gorm.io/gorm"
 	"time"
 )
 
+type Default struct {
+	ID        uint `gorm:"primaryKey"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}
+
 type User struct {
-	gorm.Model
-	Email    string `json:"email" gorm:"unique" faker:"email,unique"`
+	Default  `faker:"-"`
+	Email    string `json:"email" faker:"email,unique" gorm:"unique"`
 	Name     string `json:"name" faker:"name,unique"`
-	Password string `json:"password" faker:"password"`
-	Balance  int64  `json:"balance" gorm:"default:0"`
-	IsAdmin  bool   `json:"is_admin"`
+	Password string `json:"password" faker:"-"`
+	Balance  uint64 `json:"balance" faker:"-" gorm:"default:0"`
+	IsAdmin  bool   `json:"is_admin" faker:"-" gorm:"default:false"`
 }
 
 type Transaction struct {
-	gorm.Model
-	IdFrom   int64 `json:"id_from" faker:"boundary_start=1, boundary_end=50"`
-	IdTo     int64 `json:"id_to" faker:"boundary_start=51, boundary_end=100"`
-	UserFrom User  `json:"-" gorm:"foreignKey:IdFrom;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT"`
-	UserTo   User  `json:"-" gorm:"foreignKey:IdTo;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT"`
+	Default
+	IdFrom   int64  `json:"id_from"`
+	IdTo     int64  `json:"id_to"`
+	Amount   uint64 `json:"amount"`
+	UserFrom User   `json:"-" gorm:"foreignKey:IdFrom;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT"`
+	UserTo   User   `json:"-" gorm:"foreignKey:IdTo;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT"`
 }
 
 type Request struct {
