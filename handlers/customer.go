@@ -3,6 +3,7 @@ package handlers
 import (
 	"github.com/dParikesit/bnmo-backend/controllers"
 	"github.com/dParikesit/bnmo-backend/middleware"
+	"github.com/dParikesit/bnmo-backend/models"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strconv"
@@ -54,4 +55,21 @@ func GetHistory(c echo.Context) error {
 	} else {
 		return cc.NoContent(http.StatusBadRequest)
 	}
+}
+
+func Withdraw(c echo.Context) error {
+	cc := c.(*middleware.CustomContext)
+
+	req := new(models.Request)
+	if err := c.Bind(req); err != nil {
+		return cc.NoContent(http.StatusBadRequest)
+	}
+
+	req.UserID = cc.ID
+	req.IsAdd = false
+
+	if err := controllers.RequestInsertOne(req); err != nil {
+		return cc.NoContent(http.StatusInternalServerError)
+	}
+	return cc.NoContent(http.StatusOK)
 }

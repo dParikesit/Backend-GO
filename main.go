@@ -56,6 +56,7 @@ func main() {
 	customer.Use(middleware2.CheckCustomer)
 	customer.GET("/info", handlers.GetInfo)
 	customer.GET("/history/:historyType", handlers.GetHistory)
+	customer.POST("/withdraw", handlers.Withdraw)
 
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
