@@ -73,3 +73,20 @@ func Withdraw(c echo.Context) error {
 	}
 	return cc.NoContent(http.StatusOK)
 }
+
+func Deposit(c echo.Context) error {
+	cc := c.(*middleware.CustomContext)
+
+	req := new(models.Request)
+	if err := c.Bind(req); err != nil {
+		return cc.NoContent(http.StatusBadRequest)
+	}
+
+	req.UserID = cc.ID
+	req.IsAdd = true
+
+	if err := controllers.RequestInsertOne(req); err != nil {
+		return cc.NoContent(http.StatusInternalServerError)
+	}
+	return cc.NoContent(http.StatusOK)
+}
