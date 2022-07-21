@@ -121,8 +121,8 @@ func (Db *DbInstance) InitSeeding() error {
 		for i := 0; i < 20; i++ {
 			amount := (rand.Intn(100-20) + 20) * 1000
 			newTransaction := models.Transaction{
-				IdFrom:   int64(idAvailable[0]),
-				IdTo:     int64(idAvailable[1]),
+				IdFrom:   idAvailable[0],
+				IdTo:     idAvailable[1],
 				Amount:   uint64(amount),
 				UserFrom: models.User{},
 				UserTo:   models.User{},
