@@ -13,7 +13,7 @@ type Default struct {
 
 type User struct {
 	Default    `faker:"-"`
-	Email      string `json:"email" faker:"email,unique" gorm:"unique"`
+	Username   string `json:"username" faker:"username,unique" gorm:"unique"`
 	Name       string `json:"name" faker:"name,unique"`
 	Password   string `json:"password" faker:"-"`
 	IsVerified bool   `json:"is_verified" faker:"-" gorm:"default:false"`
