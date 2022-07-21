@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/dParikesit/bnmo-backend/handlers"
 	"github.com/dParikesit/bnmo-backend/utils"
 	"github.com/joho/godotenv"
 	"log"
@@ -26,6 +27,10 @@ func main() {
 	}
 
 	e := echo.New()
+	auth := e.Group("/auth")
+	auth.POST("/register", handlers.Registration)
+	auth.POST("/login", handlers.Login)
+
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})

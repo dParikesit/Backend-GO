@@ -10,7 +10,7 @@ func UserInsertOne(data *models.User) error {
 	return result.Error
 }
 
-func UserGetBUsernamel(username string) (models.User, error) {
+func UserGetByUsername(username string) (models.User, error) {
 	var user = models.User{Username: username}
 
 	result := utils.Db.First(&user)
