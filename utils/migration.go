@@ -92,7 +92,7 @@ func (Db *DbInstance) InitSeeding() error {
 			amount := (rand.Intn(500-100) + 100) * 1000
 			rand.Seed(time.Now().UnixNano())
 			newRequest := models.Request{
-				UserID:     int64(i),
+				UserID:     uint(i),
 				Amount:     uint64(amount),
 				IsAdd:      rand.Intn(2) == 1,
 				IsApproved: true,
