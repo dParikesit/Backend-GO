@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func InitSeeding() error {
+func (Db *DbInstance) InitSeeding() error {
 	var err error
 	faker.SetGenerateUniqueValues(true)
 
