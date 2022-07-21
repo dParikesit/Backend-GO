@@ -7,8 +7,8 @@ import (
 
 type Default struct {
 	ID        uint      `json:"id,omitempty" faker:"-" gorm:"primaryKey"`
-	CreatedAt time.Time `json:"createdAt,omitempty" faker:"-"`
-	UpdatedAt time.Time `json:"updatedAt,omitempty" faker:"-"`
+	CreatedAt time.Time `json:"created_at,omitempty" faker:"-"`
+	UpdatedAt time.Time `json:"updated_at,omitempty" faker:"-"`
 }
 
 type User struct {
@@ -39,9 +39,10 @@ type Request struct {
 	ID         uuid.UUID `json:"id" gorm:"type:uuid;default:uuid_generate_v4()"`
 	UserID     int64     `json:"id_user"`
 	Amount     uint64    `json:"amount"`
-	IsAdd      bool      `json:"isAdd"`
+	Currency   string    `json:"currency"`
+	IsAdd      bool      `json:"is_add"`
 	IsApproved bool      `json:"is_approved" gorm:"default:false"`
-	CreatedAt  time.Time `json:"createdAt,omitempty"`
-	UpdatedAt  time.Time `json:"updatedAt,omitempty"`
+	CreatedAt  time.Time `json:"created_at,omitempty"`
+	UpdatedAt  time.Time `json:"updated_at,omitempty"`
 	User       User      `json:"-" gorm:"constraint:OnUpdate:CASCADE,OnDelete:RESTRICT"`
 }
