@@ -4,6 +4,7 @@ import (
 	"github.com/bxcodec/faker/v3"
 	"github.com/dParikesit/bnmo-backend/models"
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm"
 	"log"
 	"math/rand"
 	"time"
@@ -20,6 +21,7 @@ func (Db *DbInstance) InitSeeding() error {
 		}
 
 		var hashed []byte
+		var result *gorm.DB
 		hashed, err = bcrypt.GenerateFromPassword([]byte("admin"), 14)
 		if err != nil {
 			return err
@@ -35,7 +37,28 @@ func (Db *DbInstance) InitSeeding() error {
 			Balance:    0,
 			Photo:      "",
 		}
-		result := Db.Create(&admin)
+		result = Db.Create(&admin)
+		if result.Error != nil {
+			return err
+		}
+
+		hashed, err = bcrypt.GenerateFromPassword([]byte("customer"), 14)
+		if err != nil {
+			return err
+		}
+
+		customer := models.User{
+			Default:    models.Default{},
+			Username:   "customer",
+			Name:       "customer",
+			Password:   string(hashed),
+			IsVerified: true,
+			IsAdmin:    false,
+			Balance:    0,
+			Photo:      "",
+		}
+
+		result = Db.Create(&customer)
 		if result.Error != nil {
 			return err
 		}
@@ -51,7 +74,7 @@ func (Db *DbInstance) InitSeeding() error {
 
 			newUser.Password = string(hashed)
 			newUser.Balance = uint64((rand.Intn(100000-1000) + 1000) * 1000)
-			result := Db.Create(&newUser)
+			result = Db.Create(&newUser)
 			if result.Error != nil {
 				return err
 			}
