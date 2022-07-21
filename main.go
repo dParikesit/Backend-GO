@@ -48,8 +48,8 @@ func main() {
 	admin.Use(middleware2.CheckAdmin)
 	admin.POST("/verify/user", handlers.VerifyUser)
 	admin.POST("/verify/req", handlers.VerifyRequest)
-	admin.GET("/user", handlers.GetUsers)
-	admin.GET("/history", handlers.GetRequest)
+	admin.GET("/list/user", handlers.GetUsers)
+	admin.GET("/list/history", handlers.GetRequest)
 
 	customer := e.Group("/customer")
 	customer.Use(middleware.JWTWithConfig(jwtconfig))
