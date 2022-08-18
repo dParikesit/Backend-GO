@@ -1,4 +1,4 @@
-# bnmo-backend
+# Backend-GO
 
 For quickstart, run using the available docker compose config
 
